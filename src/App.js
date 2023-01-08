@@ -30,9 +30,23 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <h1>Weather App</h1>
+        <div className="app-toggle-temp">
+          <input type="checkbox" id="toggle" />
+          <label
+            htmlFor="toggle"
+            onClick={() => {
+              setUnits(units === "imperial" ? "metric" : "imperial");
+            }}
+          >
+            <div className="app-toggle-temp-text">
+              <span>°C</span>
+              <span>°F</span>
+            </div>
+          </label>
+        </div>
       </header>
       <WeatherCard props={weatherData} units={units} />
     </div>

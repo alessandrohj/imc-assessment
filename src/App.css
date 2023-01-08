@@ -1,0 +1,94 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header > h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.app-toggle-temp {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.app-toggle-temp > input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+.app-toggle-temp-text > span:first-of-type {
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  padding-left: 0.5rem;
+}
+
+.app-toggle-temp > label {
+  cursor: pointer;
+  width: 120px;
+  height: 50px;
+  background: rgb(235, 233, 233);
+  display: block;
+  border-radius: 50px;
+  position: relative;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+.app-toggle-temp > label:after {
+  content: "";
+  position: absolute;
+  /* top: 5px; */
+  left: 0;
+  width: 60px;
+  height: 50px;
+  background: rgb(0, 74, 98);
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.app-toggle-temp > input:checked + label {
+  background: rgb(235, 233, 233);
+}
+
+.app-toggle-temp > input:checked + label:after {
+  left: calc(100% + 5px);
+  transform: translateX(-100%);
+}
+
+.app-toggle-temp
+  > input:checked
+  + label
+  > .app-toggle-temp-text
+  > span:last-of-type {
+  color: #fff;
+}
+
+.app-toggle-temp
+  > input:checked
+  + label
+  > .app-toggle-temp-text
+  > span:first-of-type {
+  color: #000;
+}
+
+.app-toggle-temp > label:active:after {
+  width: 120px;
+}
+
+.app-toggle-temp-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* color: #fff; */
+  line-height: 50px;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}

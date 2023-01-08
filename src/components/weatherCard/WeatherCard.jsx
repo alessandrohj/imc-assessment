@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "../icon/Icon";
-import "./wathercard.css";
+import "./weathercard.css";
 
 export default function WeatherCard({ props, units }) {
   return (
@@ -15,7 +15,7 @@ export default function WeatherCard({ props, units }) {
           <p className="text-center mt-2">Loading...</p>
         </div>
       ) : (
-        <div style={{ width: "10rem" }}>
+        <div style={{ width: "15rem " }}>
           <Icon type={props.weather[0].main} className="card-img-top" />
           <div className="text-center">
             <h2 data-cy="weathercard-city_name">{props.name}</h2>
