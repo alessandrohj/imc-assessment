@@ -4,7 +4,7 @@ import rainy from "../../assets/images/Rainy.png";
 import partlyCloudy from "../../assets/images/Partly_Cloudy.png";
 import sunny from "../../assets/images/Sunny.png";
 
-export default function Icon({ type }) {
+export default function Icon({ type, className }) {
   const images = {
     Snow: snowy,
     Rain: rainy,
@@ -14,9 +14,5 @@ export default function Icon({ type }) {
 
   const icon = images[type] ? images[type] : images.Clouds;
 
-  return (
-    <div>
-      <img src={icon} alt={type} />
-    </div>
-  );
+  return <img src={icon} alt={type} className={className} />;
 }
