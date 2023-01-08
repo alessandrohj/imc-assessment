@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getWeatherData, getUserLocation } from "./utils/forecast";
+import { getForeCastByCoord, getUserLocation } from "./utils/forecast";
 import "./App.css";
 import WeatherCard from "./components/weatherCard/WeatherCard";
+import MiniWeatherCard from "./components/miniWeatherCard/MiniWeatherCard";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -9,19 +10,31 @@ function App() {
   const [units, setUnits] = useState("metric"); // metric or imperial
   const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa
 
+  const favorites = [
+    { city: "Ottawa", country: "CA" },
+    { city: "Toronto", country: "CA" },
+    { city: "Montreal", country: "CA" },
+    { city: "Vancouver", country: "CA" },
+    { city: "New York", country: "US" },
+    { city: "Berlin", country: "DE" },
+    { city: "Tokyo", country: "JP" },
+    { city: "Sydney", country: "AU" },
+    { city: "Seoul", country: "KR" },
+  ];
+
   // get user location and weather data on first load. If user location is not available, use default location
   const firstLoad = () => {
     getUserLocation()
       .then((location) => {
         setUserLocation(location);
-        return getWeatherData(location, units);
+        return getForeCastByCoord(location, units);
       })
       .then((data) => {
         setWeatherData(data);
       })
       .catch((error) => {
         console.log(error);
-        getWeatherData(defaultLocation).then((data) => {
+        getForeCastByCoord(defaultLocation).then((data) => {
           setWeatherData(data);
         });
       });
@@ -72,6 +85,12 @@ function App() {
         </div>
       </header>
       <WeatherCard props={weatherData} units={units} />
+      <div className="app-favorites d-flex flex-column p-1">
+        <h3 className="ms-3">Favorite Locations</h3>
+        {favorites.map((favorite, index) => (
+          <MiniWeatherCard location={favorite} unit={units} key={index} />
+        ))}
+      </div>
     </div>
   );
 }
