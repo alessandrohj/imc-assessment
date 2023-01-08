@@ -3,24 +3,13 @@ import { getForeCastByCoord, getUserLocation } from "./utils/forecast";
 import "./App.css";
 import WeatherCard from "./components/weatherCard/WeatherCard";
 import MiniWeatherCard from "./components/miniWeatherCard/MiniWeatherCard";
+import favorites from "./assets/data/favorites";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [units, setUnits] = useState("metric"); // metric or imperial
   const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa
-
-  const favorites = [
-    { city: "Ottawa", country: "CA" },
-    { city: "Toronto", country: "CA" },
-    { city: "Montreal", country: "CA" },
-    { city: "Vancouver", country: "CA" },
-    { city: "New York", country: "US" },
-    { city: "Berlin", country: "DE" },
-    { city: "Tokyo", country: "JP" },
-    { city: "Sydney", country: "AU" },
-    { city: "Seoul", country: "KR" },
-  ];
 
   // get user location and weather data on first load. If user location is not available, use default location
   const firstLoad = () => {
