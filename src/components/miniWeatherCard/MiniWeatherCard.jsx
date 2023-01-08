@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Icon from "../icon/Icon";
 import { getForecastByCity } from "../../utils/forecast";
+import countries from "../../assets/data/countries";
 import "./styles.css";
 
 export default function MiniWeatherCard({ location, unit }) {
@@ -26,9 +27,9 @@ export default function MiniWeatherCard({ location, unit }) {
     weatherData && (
       <div className="d-flex justify-content-between align-items-center mini-card">
         <Icon type={weatherData.weather[0].main} />
-        <h2 data-cy="weathercard-city_name" className="text-right me-2">
-          {weatherData.name}
-        </h2>
+        <p data-cy="weathercard-city_name" className="text-right me-2">
+          {weatherData.name}, {countries[weatherData.sys.country]}
+        </p>
       </div>
     )
   );
