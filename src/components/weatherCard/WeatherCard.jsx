@@ -16,7 +16,7 @@ export default function WeatherCard({ props, units }) {
         </div>
       ) : (
         <div style={{ width: "15rem " }}>
-          <Icon type={props.weather[0].main} className="card-img-top" />
+          <Icon type={props.weather[0].main} />
           <div className="text-center">
             <h2 data-cy="weathercard-city_name">{props.name}</h2>
             <h3 className="mb-2 text-muted" data-cy="weathercard-condition">

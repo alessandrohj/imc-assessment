@@ -1,10 +1,11 @@
 import React from "react";
+import Image from "react-bootstrap/Image";
 import snowy from "../../assets/images/Snowy.png";
 import rainy from "../../assets/images/Rainy.png";
 import partlyCloudy from "../../assets/images/Partly_Cloudy.png";
 import sunny from "../../assets/images/Sunny.png";
 
-export default function Icon({ type, className }) {
+export default function Icon({ type }) {
   const images = {
     Snow: snowy,
     Rain: rainy,
@@ -14,5 +15,5 @@ export default function Icon({ type, className }) {
 
   const icon = images[type] ? images[type] : images.Clouds;
 
-  return <img src={icon} alt={type} className={className} />;
+  return <Image fluid src={icon} alt={type} />;
 }
