@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Weather App</h1>
+        <h1>Weather</h1>
         <div className="app-toggle-temp">
           <input type="checkbox" id="toggle" />
           <label

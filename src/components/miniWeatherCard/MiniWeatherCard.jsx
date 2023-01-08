@@ -27,7 +27,7 @@ export default function MiniWeatherCard({ location, unit }) {
     weatherData && (
       <div className="d-flex justify-content-between align-items-center mini-card">
         <Icon type={weatherData.weather[0].main} />
-        <p data-cy="weathercard-city_name" className="text-right me-2">
+        <p data-cy="weathercard-city_name" className="text-end me-2">
           {weatherData.name}, {countries[weatherData.sys.country]}
         </p>
       </div>
