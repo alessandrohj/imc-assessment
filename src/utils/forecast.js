@@ -6,7 +6,7 @@ const BASE_URL = "https://api.openweathermap.org/data/2.5/weather?";
 
 const instance = axios.create();
 
-const getWeatherData = ({ latitude, longitude }, units) => {
+const getForeCastByCoord = ({ latitude, longitude }, units) => {
   return new Promise((resolve, reject) => {
     instance
       .get(
@@ -42,10 +42,10 @@ const getUserLocation = () => {
   });
 };
 
-const getCity = (city) => {
+const getForecastByCity = (city, country) => {
   return new Promise((resolve, reject) => {
     instance
-      .get(BASE_URL + `q=${city}&lmit=5&appid=${API_KEY}`)
+      .get(BASE_URL + `q=${city},${country}&appid=${API_KEY}`)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
@@ -59,4 +59,4 @@ const getCity = (city) => {
   });
 };
 
-export { getWeatherData, getUserLocation, getCity };
+export { getForeCastByCoord, getUserLocation, getForecastByCity };
