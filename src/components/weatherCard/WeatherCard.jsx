@@ -4,7 +4,7 @@ import "./weathercard.css";
 
 export default function WeatherCard({ props, units }) {
   return (
-    <div className="d-flex justify-content-center mt-5">
+    <div className="d-flex justify-content-center mt-2">
       {!props ? (
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="spinner-border text-primary" role="status">
@@ -25,11 +25,11 @@ export default function WeatherCard({ props, units }) {
             <div className="d-flex gap-2 justify-content-center">
               <p className="fw-bold" data-cy="weathercard-temp">
                 {Math.round(props.main.temp)}
-                {units === "metrics" ? "°C" : "°F"}
+                {units === "metric" ? "°C" : "°F"}
               </p>
               <p data-cy="weathercard-feels_like">
                 (Feels like: {Math.round(props.main.feels_like)}
-                {units === "metrics" ? "°C" : "°F"})
+                {units === "metric" ? "°C" : "°F"})
               </p>
             </div>
           </div>
