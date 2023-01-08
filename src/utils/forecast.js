@@ -42,19 +42,21 @@ const getUserLocation = () => {
   });
 };
 
-const getCity = (name) => {
-  instance
-    .get(BASE_URL + `q=${name}&lmit=5&appid=${API_KEY}`)
-    .then((response) => {
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        console.log(response.message);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+const getCity = (city) => {
+  return new Promise((resolve, reject) => {
+    instance
+      .get(BASE_URL + `q=${city}&lmit=5&appid=${API_KEY}`)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(response.message);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
 
 export { getWeatherData, getUserLocation, getCity };
