@@ -59,4 +59,27 @@ const getForecastByCity = (city, country) => {
   });
 };
 
-export { getForeCastByCoord, getUserLocation, getForecastByCity };
+const getGeolocation = (city) => {
+  return new Promise((resolve, reject) => {
+    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`;
+    instance
+      .get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(response.message);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export {
+  getForeCastByCoord,
+  getUserLocation,
+  getForecastByCity,
+  getGeolocation,
+};
