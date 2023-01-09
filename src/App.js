@@ -4,6 +4,7 @@ import "./App.css";
 import WeatherCard from "./components/weatherCard/WeatherCard";
 import MiniWeatherCard from "./components/miniWeatherCard/MiniWeatherCard";
 import favorites from "./assets/data/favorites";
+import Search from "./components/search/Search";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -74,6 +75,7 @@ function App() {
         </div>
       </header>
       <WeatherCard props={weatherData} units={units} />
+      <Search />
       <div className="app-favorites d-flex flex-column p-1">
         <h3 className="ms-3">Favorite Locations</h3>
         {favorites.map((favorite, index) => (
