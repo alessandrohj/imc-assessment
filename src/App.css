@@ -1,8 +1,16 @@
+.app {
+  height: 100vh;
+}
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+.app-header + div {
+  height: 45vh;
 }
 
 .app-header > h1 {
@@ -92,4 +100,8 @@
   display: flex;
   justify-content: space-between;
   gap: 3rem;
+}
+
+.app-favorites-list {
+  max-height: 32vh;
 }

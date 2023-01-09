@@ -77,10 +77,12 @@ function App() {
       <WeatherCard props={weatherData} units={units} />
       <Search />
       <div className="app-favorites d-flex flex-column p-1">
-        <h3 className="ms-3">Favorite Locations</h3>
-        {favorites.map((favorite, index) => (
-          <MiniWeatherCard location={favorite} unit={units} key={index} />
-        ))}
+        <h3 className="ms-3 m-2">Favorite Locations</h3>
+        <div className="app-favorites-list p-1 overflow-auto container shadow">
+          {favorites.map((favorite, index) => (
+            <MiniWeatherCard location={favorite} unit={units} key={index} />
+          ))}
+        </div>
       </div>
     </div>
   );
