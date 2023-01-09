@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import { getGeolocation } from "../../utils/forecast";
 
-export default function Search() {
-  const [cityList, setCityList] = useState("");
-  const [city, setCity] = useState("");
+export default function Search({ find }) {
+  const [cityList, setCityList] = useState([]);
   const [query, setQuery] = useState("");
 
   const handleSearch = (query) => {
     setQuery(query);
-    console.log(query);
     setTimeout(() => {
       getGeolocation(query)
         .then((data) => {
           setCityList(data);
-          console.log(data);
         })
         .catch((err) => {
           console.log(err);
         });
     }, 100);
+  };
+
+  const handleSelection = (city) => {
+    setQuery(city.name);
+    find({
+      city: city.name,
+      coord: { longitude: city.lon, latitude: city.lat },
+    });
+    setCityList([]);
   };
 
   return (
@@ -36,7 +42,7 @@ export default function Search() {
             <li
               className="list-group-item list-group-item-action"
               key={city.id}
-              onClick={() => setCity(city.name)}
+              onClick={() => handleSelection(city)}
             >
               {city.name}
             </li>

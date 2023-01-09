@@ -42,10 +42,10 @@ const getUserLocation = () => {
   });
 };
 
-const getForecastByCity = (city, country) => {
+const getForecastByCity = (city, country, units) => {
   return new Promise((resolve, reject) => {
     instance
-      .get(BASE_URL + `q=${city},${country}&appid=${API_KEY}`)
+      .get(BASE_URL + `q=${city},${country}&units=${units}&appid=${API_KEY}`)
       .then((response) => {
         if (response.status === 200) {
           resolve(response.data);
