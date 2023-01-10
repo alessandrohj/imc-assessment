@@ -15,13 +15,21 @@ export default function WeatherCard({ props, units }) {
           <p className="text-center mt-2">Loading...</p>
         </div>
       ) : (
-        <div style={{ width: "15rem " }}>
+        <div className="weathercard">
           <Icon type={props.weather[0].main} />
-          <div className="text-center">
+          <div className="text-center d-flex flex-column gap-0">
             <h2 data-cy="weathercard-city_name">{props.name}</h2>
-            <h3 className="mb-2 text-muted" data-cy="weathercard-condition">
-              {props.weather[0].main}
-            </h3>
+            <div className="d-flex flex-column align-items-center justify-content-center">
+              <h3 className="text-muted" data-cy="weathercard-condition">
+                {props.weather[0].main}
+              </h3>
+              <p className="text-muted">
+                {props.weather[0].description
+                  .split(" ")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ")}
+              </p>
+            </div>
             <div className="d-flex gap-2 justify-content-center">
               <p className="fw-bold" data-cy="weathercard-temp">
                 {Math.round(props.main.temp)}

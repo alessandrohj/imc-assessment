@@ -11,6 +11,7 @@ export default function MiniWeatherCard({ location, unit }) {
   const getData = () => {
     getForecastByCity(city, state, country, unit)
       .then((data) => {
+        console.log(data);
         setWeatherData(data);
       })
       .catch((err) => {
@@ -26,9 +27,19 @@ export default function MiniWeatherCard({ location, unit }) {
     weatherData && (
       <div className="d-flex justify-content-between align-items-center mini-card">
         <Icon type={weatherData.weather[0].main} />
-        <p data-cy="weathercard-city_name" className="text-end me-2">
-          {weatherData.name}, {countries[weatherData.sys.country]}
-        </p>
+        <div className="d-flex w-100 justify-content-between">
+          <p data-cy="weathercard-temp text-muted" className="text-left">
+            {Math.round(weatherData.main.temp_min)} /{" "}
+            {Math.round(weatherData.main.temp_max)}
+            {unit === "metric" ? "°C" : "°F"}
+          </p>
+          <p
+            data-cy="weathercard-city_name"
+            className="text-end text-wrap text-break me-2 fw-bold"
+          >
+            {weatherData.name}, {countries[weatherData.sys.country]}
+          </p>
+        </div>
       </div>
     )
   );

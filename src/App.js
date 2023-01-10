@@ -14,7 +14,7 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [searchedLocation, setSearchedLocation] = useState(null);
-  const [units, setUnits] = useState("metric"); // metric or imperial
+  const [units, setUnits] = useState("imperial"); // metric or imperial
   const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa
 
   // get user location and weather data on first load. If user location is not available, use default location
@@ -50,6 +50,7 @@ function App() {
         searchedLocation.country,
         units
       ).then((data) => {
+        setUserLocation(null);
         setWeatherData(data);
       });
     }
@@ -85,16 +86,17 @@ function App() {
           <label
             htmlFor="toggle"
             onClick={() => {
-              setUnits(units === "imperial" ? "metric" : "imperial");
+              setUnits(units === "metric" ? "metric" : "imperial");
             }}
           >
             <div className="app-toggle-temp-text">
-              <span>°C</span>
               <span>°F</span>
+              <span>°C</span>
             </div>
           </label>
         </div>
       </header>
+      {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
       <WeatherCard props={weatherData} units={units} />
       <Search find={setSearchedLocation} />
       <div className="app-favorites d-flex flex-column p-1">
