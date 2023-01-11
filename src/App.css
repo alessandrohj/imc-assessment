@@ -10,7 +10,7 @@
 }
 
 .app-header + div {
-  height: 45vh;
+  height: 43vh;
 }
 
 .app-header > h1 {
@@ -103,5 +103,5 @@
 }
 
 .app-favorites-list {
-  max-height: 32vh;
+  max-height: 35vh;
 }

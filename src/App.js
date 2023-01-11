@@ -15,7 +15,18 @@ function App() {
   const [userLocation, setUserLocation] = useState(null);
   const [searchedLocation, setSearchedLocation] = useState(null);
   const [units, setUnits] = useState("imperial"); // metric or imperial
-  const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa
+  const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa, Canada
+  const [backgroundColor, setBackgroundColor] = useState("#FFFFF"); // default color is sunny
+  const weatherColors = {
+    snow: "rgba(245, 245, 245, 0.15)",
+    clouds: "rgba(169, 169, 169, 0.15)",
+    rain: "rgba(30, 144, 255, 0.15)",
+    clear: "rgba(135, 206, 235, 0.15)",
+    mist: "rgba(176, 224, 230, 0.15)",
+    thunderstorm: "rgba(0, 0, 139, 0.15)",
+    drizzle: "rgba(126, 192, 238, 0.15)",
+    default: "#FFFFF",
+  };
 
   // get user location and weather data on first load. If user location is not available, use default location
   const firstLoad = () => {
@@ -80,9 +91,21 @@ function App() {
     }
   }, [units]);
 
+  useEffect(() => {
+    // if weatherData is available, change background color
+    if (weatherData) {
+      const weather = weatherData.weather[0].main.toLowerCase();
+      const weatherColor = weatherColors[weather] || weatherColors.default;
+      setBackgroundColor(weatherColor);
+    }
+  }, [weatherData]);
+
   return (
     <div className="app">
-      <header className="app-header">
+      <header
+        className="app-header"
+        style={{ backgroundColor: backgroundColor }}
+      >
         <h1>Weather</h1>
         <div className="app-toggle-temp">
           <input type="checkbox" id="toggle" />
@@ -99,15 +122,20 @@ function App() {
           </label>
         </div>
       </header>
-      {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
-      <WeatherCard props={weatherData} units={units} />
-      <Search find={setSearchedLocation} />
-      <div className="app-favorites d-flex flex-column p-1">
-        <h3 className="ms-3 m-2">Favorite Locations</h3>
-        <div className="app-favorites-list p-1 overflow-auto container shadow">
-          {favorites.map((favorite, index) => (
-            <MiniWeatherCard location={favorite} unit={units} key={index} />
-          ))}
+      <div>
+        {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
+        <WeatherCard props={weatherData} units={units} />
+        <div
+          className="app-favorites d-flex flex-column p-1"
+          style={{ backgroundColor: backgroundColor }}
+        >
+          <Search find={setSearchedLocation} />
+          <h3 className="ms-3 m-2">Favorite Locations</h3>
+          <div className="app-favorites-list p-1 overflow-auto container shadow">
+            {favorites.map((favorite, index) => (
+              <MiniWeatherCard location={favorite} unit={units} key={index} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

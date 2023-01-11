@@ -10,7 +10,7 @@ export default function MiniWeatherCard({ location, unit }) {
   const { city, state, country } = location;
 
   const getData = () => {
-    getForecastByCity(city, state, country, unit)
+    getForecastByCity(city, country, unit)
       .then((data) => {
         // console.log(data);
         setWeatherData(data);

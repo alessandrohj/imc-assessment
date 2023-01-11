@@ -1,3 +1,16 @@
 .weathercard > img {
   width: 12rem;
 }
+
+.weathercard-details > * {
+  margin: 0;
+}
+
+.weathercard-wind > img {
+  width: 1.5rem;
+  height: auto;
+}
+
+.loading {
+  height: 43vh;
+}
