@@ -15,7 +15,7 @@ export default function Search({ find }) {
         .catch((err) => {
           console.log(err);
         });
-    }, 100);
+    }, 150);
   };
 
   const handleSelection = (city) => {
@@ -38,10 +38,10 @@ export default function Search({ find }) {
       />
       <ul className="list-group position-absolute w-75">
         {cityList &&
-          cityList.map((city) => (
+          cityList.map((city, index) => (
             <li
               className="list-group-item list-group-item-action"
-              key={city.id}
+              key={index}
               onClick={() => handleSelection(city)}
             >
               {city.name}
