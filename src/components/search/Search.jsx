@@ -33,6 +33,7 @@ export default function Search({ find }) {
         type="text"
         className="form-control"
         placeholder="Search for a city"
+        id="search"
         value={query}
         onChange={(ev) => handleSearch(ev.target.value)}
       />

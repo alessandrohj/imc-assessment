@@ -25,17 +25,6 @@ export default function WeatherCard({ props, units }) {
               <h3 className="text-muted" data-cy="weathercard-condition">
                 {props.weather[0].main}
               </h3>
-              {/* {props.weather[0].main.toLowerCase() !==
-              props.weather[0].description.toLowerCase() ? (
-                <span className="mb-4" />
-              ) : (
-                <p className="text-muted">
-                  {props.weather[0].description
-                    .split(" ")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
-                </p>
-              )} */}
               <div className="d-flex gap-5">
                 <div className="d-flex justify-content-center align-items-center gap-1">
                   <img src={temperature} alt="temperature" />

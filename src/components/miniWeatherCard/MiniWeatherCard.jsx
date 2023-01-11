@@ -7,12 +7,11 @@ import "./styles.css";
 
 export default function MiniWeatherCard({ location, unit }) {
   const [weatherData, setWeatherData] = useState(null);
-  const { city, state, country } = location;
+  const { city, country } = location;
 
   const getData = () => {
     getForecastByCity(city, country, unit)
       .then((data) => {
-        // console.log(data);
         setWeatherData(data);
       })
       .catch((err) => {
