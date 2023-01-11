@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Icon from "../icon/Icon";
 import { getForecastByCity } from "../../utils/forecast";
 import countries from "../../assets/data/countries";
+import convertTemp from "../../utils/convertTemp";
 import "./styles.css";
 
 export default function MiniWeatherCard({ location, unit }) {
@@ -11,7 +12,7 @@ export default function MiniWeatherCard({ location, unit }) {
   const getData = () => {
     getForecastByCity(city, state, country, unit)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setWeatherData(data);
       })
       .catch((err) => {
@@ -22,6 +23,17 @@ export default function MiniWeatherCard({ location, unit }) {
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    if (weatherData) {
+      const tempMin = convertTemp(weatherData.main.temp_min, unit);
+      const tempMax = convertTemp(weatherData.main.temp_max, unit);
+      setWeatherData({
+        ...weatherData,
+        main: { temp_min: tempMin, temp_max: tempMax },
+      });
+    }
+  }, [unit]);
 
   return (
     weatherData && (

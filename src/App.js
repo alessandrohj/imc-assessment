@@ -59,12 +59,14 @@ function App() {
   useEffect(() => {
     // if weatherData is available and only units change convert temperature
     if (weatherData) {
-      const temp = weatherData.main.temp;
-      const feelsLike = weatherData.main.feels_like;
       const convertedTemp =
-        units === "metric" ? (temp - 32) * 0.5556 : temp * 1.8 + 32;
+        units === "metric"
+          ? (weatherData.main.temp - 32) * 0.5556
+          : weatherData.main.temp * 1.8 + 32;
       const convertedFeelsLike =
-        units === "metric" ? (feelsLike - 32) * 0.5556 : feelsLike * 1.8 + 32;
+        units === "metric"
+          ? (weatherData.main.feels_like - 32) * 0.5556
+          : weatherData.main.feels_like * 1.8 + 32;
 
       setWeatherData({
         ...weatherData,
@@ -74,6 +76,7 @@ function App() {
           feels_like: convertedFeelsLike,
         },
       });
+      console.log(weatherData);
     }
   }, [units]);
 
@@ -86,7 +89,7 @@ function App() {
           <label
             htmlFor="toggle"
             onClick={() => {
-              setUnits(units === "metric" ? "metric" : "imperial");
+              setUnits(units === "metric" ? "imperial" : "metric");
             }}
           >
             <div className="app-toggle-temp-text">
