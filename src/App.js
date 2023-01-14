@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import {
   getForeCastByCoord,
   getUserLocation,
@@ -13,6 +14,7 @@ import convertWindSpeed from "./utils/convertWindSpeed";
 import convertTemp from "./utils/convertTemp";
 
 function App() {
+  const [favoritesList, setFavoritesList] = useState(favorites);
   const [weatherData, setWeatherData] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [searchedLocation, setSearchedLocation] = useState(null);
@@ -106,6 +108,27 @@ function App() {
     }
   }, [weatherData]);
 
+  const onDragEnd = (result, data) => {
+    // if no destination
+    if (!result.destination) {
+      return;
+    }
+
+    // if the item is dropped in the same position
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    // create a new array with the updated order
+    const newFavoritesList = [...favoritesList];
+    const [removed] = newFavoritesList.splice(result.source.index, 1);
+    newFavoritesList.splice(result.destination.index, 0, removed);
+
+    // set the state with the new array
+    setFavoritesList(newFavoritesList);
+    console.log(newFavoritesList);
+  };
+
   return (
     <div className="app">
       <header
@@ -137,11 +160,29 @@ function App() {
         >
           <Search find={setSearchedLocation} />
           <h3 className="ms-3 m-2">Favorite Locations</h3>
-          <div className="app-favorites-list p-1 overflow-auto container shadow">
-            {favorites.map((favorite, index) => (
-              <MiniWeatherCard location={favorite} unit={units} key={index} />
-            ))}
-          </div>
+          <DragDropContext
+            onDragEnd={(result) => onDragEnd(result, favoritesList)}
+          >
+            <Droppable droppableId="fave-list" type="favorites">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="app-favorites-list p-1 overflow-auto container shadow"
+                >
+                  {favoritesList.map((favorite, index) => (
+                    <MiniWeatherCard
+                      location={favorite}
+                      unit={units}
+                      key={favorite.id}
+                      index={index}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
     </div>
