@@ -9,6 +9,8 @@ import WeatherCard from "./components/weatherCard/WeatherCard";
 import MiniWeatherCard from "./components/miniWeatherCard/MiniWeatherCard";
 import favorites from "./assets/data/favorites";
 import Search from "./components/search/Search";
+import convertWindSpeed from "./utils/convertWindSpeed";
+import convertTemp from "./utils/convertTemp";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -70,14 +72,14 @@ function App() {
   useEffect(() => {
     // if weatherData is available and only units change convert temperature
     if (weatherData) {
-      const convertedTemp =
-        units === "metric"
-          ? (weatherData.main.temp - 32) * 0.5556
-          : weatherData.main.temp * 1.8 + 32;
-      const convertedFeelsLike =
-        units === "metric"
-          ? (weatherData.main.feels_like - 32) * 0.5556
-          : weatherData.main.feels_like * 1.8 + 32;
+      const convertedTemp = convertTemp(weatherData.main.temp, units);
+      const convertedFeelsLike = convertTemp(
+        weatherData.main.feels_like,
+        units
+      );
+      const convertedWindSpeed = Math.round(
+        convertWindSpeed(weatherData.wind.speed, units)
+      );
 
       setWeatherData({
         ...weatherData,
@@ -85,6 +87,10 @@ function App() {
           ...weatherData.main,
           temp: convertedTemp,
           feels_like: convertedFeelsLike,
+        },
+        wind: {
+          ...weatherData.wind,
+          speed: convertedWindSpeed,
         },
       });
       console.log(weatherData);

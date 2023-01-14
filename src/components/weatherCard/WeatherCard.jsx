@@ -41,7 +41,9 @@ export default function WeatherCard({ props, units }) {
                 </div>
                 <div className="d-flex justify-content-center align-items-center gap-1 weathercard-details mb-2">
                   <img src={wind} alt="wind" />
-                  <p>{props.wind.speed}</p>
+                  <p>
+                    {props.wind.speed} {units === "metric" ? "km/h" : "mph"}
+                  </p>
                 </div>
               </div>
             </div>
