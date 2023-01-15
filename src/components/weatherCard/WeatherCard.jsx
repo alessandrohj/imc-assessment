@@ -3,6 +3,7 @@ import Icon from "../icon/Icon";
 import "./weathercard.css";
 import wind from "../../assets/icons/wind.svg";
 import temperature from "../../assets/icons/temperature.svg";
+import Details from "../details/Details";
 
 export default function WeatherCard({ props, units, userLocation }) {
   return (
@@ -17,7 +18,7 @@ export default function WeatherCard({ props, units, userLocation }) {
           <p className="text-center mt-2">Loading...</p>
         </div>
       ) : (
-        <div className="weathercard d-md-flex flex-md-column flex-md-column align-items-md-center">
+        <div className="weathercard d-md-flex flex-md-column flex-md-column align-items-md-center ">
           {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
           <Icon type={props.weather[0].main} />
           <div className="text-center d-flex flex-column gap-0">
@@ -59,6 +60,7 @@ export default function WeatherCard({ props, units, userLocation }) {
               </p>
             </div>
           </div>
+          <Details props={props} units={units} />
         </div>
       )}
     </div>
