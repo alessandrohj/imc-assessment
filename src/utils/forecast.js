@@ -79,7 +79,7 @@ const getGeolocation = (city) => {
 
 const getForecast = (lat, lon, units) => {
   return new Promise((resolve, reject) => {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=7&appid=${API_KEY}&units=${units}`;
+    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=9&appid=${API_KEY}&units=${units}`;
     instance
       .get(url)
       .then((response) => {
