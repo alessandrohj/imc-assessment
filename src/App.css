@@ -1,5 +1,6 @@
 .app {
   height: 100vh;
+  background-color: rgba(228, 228, 228, 0.5);
 }
 
 .app-header {
@@ -51,7 +52,6 @@
 .app-toggle-temp > label:after {
   content: "";
   position: absolute;
-  /* top: 5px; */
   left: 0;
   width: 60px;
   height: 50px;
@@ -104,4 +104,14 @@
 
 .app-favorites-list {
   max-height: 35vh;
+}
+
+@media only screen and (min-width: 768px) {
+  .app-header + div {
+    height: 85vh;
+    margin: 1rem 0.5rem;
+  }
+  .app-favorites-list {
+    max-height: 76vh;
+  }
 }

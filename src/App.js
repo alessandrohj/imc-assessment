@@ -151,15 +151,23 @@ function App() {
           </label>
         </div>
       </header>
-      <div>
-        {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
-        <WeatherCard props={weatherData} units={units} />
+      <div className="app-body d-md-flex flex-md-row-reverse justify-content-md-between align-items-md-center">
+        <WeatherCard
+          props={weatherData}
+          units={units}
+          userLocation={userLocation}
+        />
         <div
-          className="app-favorites d-flex flex-column p-1"
-          style={{ backgroundColor: backgroundColor }}
+          className="app-favorites d-flex flex-column p-1 pt-md-1 mt-md-2 ms-md-2"
+          style={{
+            backgroundColor: backgroundColor ? backgroundColor : "white",
+            boxShadow: !backgroundColor
+              ? "0 0 10px 0 rgba(0, 0, 0, 0.2)"
+              : "none",
+          }}
         >
           <Search find={setSearchedLocation} />
-          <h3 className="ms-3 m-2">Favorite Locations</h3>
+          <h3 className="ms-3 m-2 ms-md-0 m-md-0">Favorite Locations</h3>
           <DragDropContext
             onDragEnd={(result) => onDragEnd(result, favoritesList)}
           >

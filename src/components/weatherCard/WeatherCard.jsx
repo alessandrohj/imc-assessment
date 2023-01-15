@@ -4,9 +4,9 @@ import "./weathercard.css";
 import wind from "../../assets/icons/wind.svg";
 import temperature from "../../assets/icons/temperature.svg";
 
-export default function WeatherCard({ props, units }) {
+export default function WeatherCard({ props, units, userLocation }) {
   return (
-    <div className="d-flex justify-content-center mt-2">
+    <div className="d-flex justify-content-center mt-2 weathercard">
       {!props ? (
         <div className="d-flex flex-column align-items-center justify-content-center loading">
           <div className="spinner-border text-primary" role="status">
@@ -17,7 +17,8 @@ export default function WeatherCard({ props, units }) {
           <p className="text-center mt-2">Loading...</p>
         </div>
       ) : (
-        <div className="weathercard">
+        <div className="weathercard d-md-flex flex-md-column flex-md-column align-items-md-center">
+          {userLocation && <h2 className="text-center mt-1">Your Location</h2>}
           <Icon type={props.weather[0].main} />
           <div className="text-center d-flex flex-column gap-0">
             <h2 data-cy="weathercard-city_name">{props.name}</h2>
