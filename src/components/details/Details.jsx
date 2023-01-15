@@ -13,12 +13,12 @@ export default function Details({ props, units }) {
 
   return (
     <div className="weather-details d-none d-md-block">
-      <div className="weather-details__item-top">
+      {/* <div className="weather-details__item-top">
         <p className="weather-details__item-overcast text-center text-capitalize">
           {props.weather[0].description}
         </p>
-      </div>
-      <div className="weather-details-container d-flex gap-5 w-100 justify-content-start mt-4">
+      </div> */}
+      <div className="weather-details-container d-flex justify-content-center align-items-center gap-5 w-100 mt-4">
         <div className="weather-details-current d-flex flex-column w-100 justify-content-start me-5">
           <div className="weather-details__item">
             <p className="weather-details__item-sunrise">
@@ -36,14 +36,12 @@ export default function Details({ props, units }) {
           </div>
           <div className="weather-details__item">
             <p className="weather-details__item-humidity">
-              Humidity: {props.main.humidity}
-              <span className="weather-details__item-percent">%</span>
+              Humidity: {props.main.humidity}%
             </p>
           </div>
           <div className="weather-details__item">
             <p className="weather-details__item-pressure">
-              Pressure: {props.main.pressure}{" "}
-              <span className="weather-details__item-hpa">hPa</span>
+              Pressure: {props.main.pressure} hPa
             </p>
           </div>
           <div className="weather-details__item d-md-flex gap-3">
@@ -55,7 +53,6 @@ export default function Details({ props, units }) {
             </p>
           </div>
         </div>
-        <Forecast props={props} units={units} />
       </div>
     </div>
   );

@@ -167,7 +167,9 @@ function App() {
           }}
         >
           <Search find={setSearchedLocation} />
-          <h3 className="ms-3 m-2 ms-md-0 m-md-0">Favorite Locations</h3>
+          <h3 className="ms-3 m-2 ms-md-0 m-md-0 text-center">
+            Favorite Locations
+          </h3>
           <DragDropContext
             onDragEnd={(result) => onDragEnd(result, favoritesList)}
           >
