@@ -24,6 +24,10 @@ A simple and user-friendly weather app that allows you to check the current weat
 
 4. Access the app at [http://localhost:3000](http://localhost:3000)
 
+## Deployment
+
+The app is deployed on [Netlify](https://www.netlify.com/) at [https://weather-app.netlify.com](https://weather-app.netlify.com)
+
 ## Built With
 
 - ![React](https://img.icons8.com/color/96/000000/react-native.png) [React](https://reactjs.org/) - A JavaScript library for building user interfaces
