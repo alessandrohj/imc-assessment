@@ -1,0 +1,8 @@
+.weather-forecast {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.weather-forecast img {
+  max-height: 5rem;
+}

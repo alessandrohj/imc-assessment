@@ -63,11 +63,30 @@ const getForecastByCity = (city, country, units) => {
 
 const getGeolocation = (city) => {
   return new Promise((resolve, reject) => {
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`;
+    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&limit=5&appid=${API_KEY}`;
     instance
       .get(url)
       .then((response) => {
         if (response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(response.message);
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const getForecast = (lat, lon, units) => {
+  return new Promise((resolve, reject) => {
+    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=7&appid=${API_KEY}&units=${units}`;
+    instance
+      .get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data);
           resolve(response.data);
         } else {
           reject(response.message);
@@ -84,4 +103,5 @@ export {
   getUserLocation,
   getForecastByCity,
   getGeolocation,
+  getForecast,
 };
