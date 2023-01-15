@@ -16,7 +16,6 @@ const getForeCastByCoord = ({ latitude, longitude }, units) => {
       )
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
           resolve(response.data);
         }
       })
@@ -49,7 +48,6 @@ const getForecastByCity = (city, country, units) => {
       .get(BASE_URL + `q=${city},${country}&appid=${API_KEY}&units=${units}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
           resolve(response.data);
         } else {
           reject(response.message);
@@ -86,7 +84,6 @@ const getForecast = (lat, lon, units) => {
       .get(url)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
           resolve(response.data);
         } else {
           reject(response.message);

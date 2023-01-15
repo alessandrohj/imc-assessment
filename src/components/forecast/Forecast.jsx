@@ -8,7 +8,6 @@ export default function Forecast({ props, units }) {
   function onLoad() {
     getForecast(props.coord.lat, props.coord.lon, units).then((response) => {
       setForecast(response);
-      console.log("Forecast response", response);
     });
   }
 

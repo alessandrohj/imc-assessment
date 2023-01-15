@@ -12,12 +12,14 @@ import favorites from "./assets/data/favorites";
 import Search from "./components/search/Search";
 import convertWindSpeed from "./utils/convertWindSpeed";
 import convertTemp from "./utils/convertTemp";
+import UserContext from "./utils/UserContext";
 
 function App() {
   const [favoritesList, setFavoritesList] = useState(favorites);
   const [weatherData, setWeatherData] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [searchedLocation, setSearchedLocation] = useState(null);
+  const [clickedCard, setClickedCard] = useState(null);
   const [units, setUnits] = useState("imperial"); // metric or imperial
   const defaultLocation = { latitude: 45.4215, longitude: -75.6972 }; // Ottawa, Canada
   const [backgroundColor, setBackgroundColor] = useState("#FFFFF"); // default color is sunny
@@ -95,7 +97,6 @@ function App() {
           speed: convertedWindSpeed,
         },
       });
-      console.log(weatherData);
     }
   }, [units]);
 
@@ -108,94 +109,103 @@ function App() {
     }
   }, [weatherData]);
 
-  const onDragEnd = (result, data) => {
+  const onDragEnd = (result) => {
     // if no destination
     if (!result.destination) {
       return;
     }
-
     // if the item is dropped in the same position
     if (result.destination.index === result.source.index) {
       return;
     }
-
     // create a new array with the updated order
     const newFavoritesList = [...favoritesList];
     const [removed] = newFavoritesList.splice(result.source.index, 1);
     newFavoritesList.splice(result.destination.index, 0, removed);
-
     // set the state with the new array
     setFavoritesList(newFavoritesList);
-    console.log(newFavoritesList);
   };
 
+  useEffect(() => {
+    // if clickedCard is available, get weather data
+    if (clickedCard) {
+      getForecastByCity(clickedCard.name, clickedCard.sys.country, units).then(
+        (data) => {
+          setUserLocation(null);
+          setWeatherData(data);
+        }
+      );
+    }
+  }, [clickedCard]);
+
   return (
-    <div className="app">
-      <header
-        className="app-header"
-        style={{ backgroundColor: backgroundColor }}
-      >
-        <h1>Weather</h1>
-        <div className="app-toggle-temp">
-          <input type="checkbox" id="toggle" />
-          <label
-            htmlFor="toggle"
-            onClick={() => {
-              setUnits(units === "metric" ? "imperial" : "metric");
+    <UserContext.Provider value={{ clickedCard, setClickedCard }}>
+      <div className="app">
+        <header
+          className="app-header"
+          style={{ backgroundColor: backgroundColor }}
+        >
+          <h1>Weather</h1>
+          <div className="app-toggle-temp">
+            <input type="checkbox" id="toggle" />
+            <label
+              htmlFor="toggle"
+              onClick={() => {
+                setUnits(units === "metric" ? "imperial" : "metric");
+              }}
+            >
+              <div className="app-toggle-temp-text">
+                <span>°F</span>
+                <span>°C</span>
+              </div>
+            </label>
+          </div>
+        </header>
+        <div className="app-body d-md-flex flex-md-row-reverse justify-content-md-between align-items-md-center">
+          <WeatherCard
+            props={weatherData}
+            units={units}
+            userLocation={userLocation}
+          />
+          <div
+            className="app-favorites d-flex flex-column p-1 pt-md-1 mt-md-2 ms-md-2"
+            style={{
+              backgroundColor: backgroundColor ? backgroundColor : "white",
+              boxShadow: !backgroundColor
+                ? "0 0 10px 0 rgba(0, 0, 0, 0.2)"
+                : "none",
             }}
           >
-            <div className="app-toggle-temp-text">
-              <span>°F</span>
-              <span>°C</span>
-            </div>
-          </label>
-        </div>
-      </header>
-      <div className="app-body d-md-flex flex-md-row-reverse justify-content-md-between align-items-md-center">
-        <WeatherCard
-          props={weatherData}
-          units={units}
-          userLocation={userLocation}
-        />
-        <div
-          className="app-favorites d-flex flex-column p-1 pt-md-1 mt-md-2 ms-md-2"
-          style={{
-            backgroundColor: backgroundColor ? backgroundColor : "white",
-            boxShadow: !backgroundColor
-              ? "0 0 10px 0 rgba(0, 0, 0, 0.2)"
-              : "none",
-          }}
-        >
-          <Search find={setSearchedLocation} />
-          <h3 className="ms-3 m-2 ms-md-0 m-md-0 text-center">
-            Favorite Locations
-          </h3>
-          <DragDropContext
-            onDragEnd={(result) => onDragEnd(result, favoritesList)}
-          >
-            <Droppable droppableId="fave-list" type="favorites">
-              {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  className="app-favorites-list p-1 overflow-auto container shadow"
-                >
-                  {favoritesList.map((favorite, index) => (
-                    <MiniWeatherCard
-                      location={favorite}
-                      unit={units}
-                      key={favorite.id}
-                      index={index}
-                    />
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+            <Search find={setSearchedLocation} />
+            <h3 className="ms-3 m-2 ms-md-0 m-md-0 text-center">
+              Favorite Locations
+            </h3>
+            <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+              <Droppable droppableId="fave-list" type="favorites">
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="app-favorites-list p-1 overflow-auto container shadow"
+                  >
+                    {favoritesList.map((favorite, index) => (
+                      <MiniWeatherCard
+                        location={favorite}
+                        unit={units}
+                        key={favorite.id}
+                        index={index}
+                        select={setClickedCard}
+                      />
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
         </div>
       </div>
-    </div>
+    </UserContext.Provider>
   );
 }
 

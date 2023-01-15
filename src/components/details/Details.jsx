@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import convertWindSpeed from "../../utils/convertWindSpeed";
-import Forecast from "../forecast/Forecast";
 
 export default function Details({ props, units }) {
   function getTime(time) {
@@ -9,15 +8,9 @@ export default function Details({ props, units }) {
     const minutes = "0" + date.getMinutes();
     return hours + ":" + minutes.substr(-2);
   }
-  console.log(props);
 
   return (
     <div className="weather-details d-none d-md-block">
-      {/* <div className="weather-details__item-top">
-        <p className="weather-details__item-overcast text-center text-capitalize">
-          {props.weather[0].description}
-        </p>
-      </div> */}
       <div className="weather-details-container d-flex justify-content-center align-items-center gap-5 w-100 mt-4">
         <div className="weather-details-current d-flex flex-column w-100 justify-content-start me-5">
           <div className="weather-details__item">
