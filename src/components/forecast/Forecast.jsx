@@ -26,7 +26,7 @@ export default function Forecast({ props, units }) {
   }
   return (
     forecast.list && (
-      <div className="forecast d-none d-md-block w-50 mt-2">
+      <div className="forecast w-50 mt-2">
         <h5 className="text-center">Next Hours</h5>
         <div className="weather-forecast d-flex flex-wrap justify-content-center align-items-center">
           {forecast.list.map((item, index) => {

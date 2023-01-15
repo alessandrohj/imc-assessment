@@ -61,7 +61,7 @@ export default function WeatherCard({ props, units, userLocation }) {
               </p>
             </div>
           </div>
-          <div className="additional-info-container d-flex justify-content-center align-items-center">
+          <div className="additional-info-container d-none d-md-flex justify-content-center align-items-center">
             <Details props={props} units={units} />
             <Forecast props={props} units={units} />
           </div>

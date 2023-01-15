@@ -12,7 +12,6 @@ import favorites from "./assets/data/favorites";
 import Search from "./components/search/Search";
 import convertWindSpeed from "./utils/convertWindSpeed";
 import convertTemp from "./utils/convertTemp";
-import UserContext from "./utils/UserContext";
 
 function App() {
   const [favoritesList, setFavoritesList] = useState(favorites);
@@ -139,73 +138,71 @@ function App() {
   }, [clickedCard]);
 
   return (
-    <UserContext.Provider value={{ clickedCard, setClickedCard }}>
-      <div className="app">
-        <header
-          className="app-header"
-          style={{ backgroundColor: backgroundColor }}
-        >
-          <h1>Weather</h1>
-          <div className="app-toggle-temp">
-            <input type="checkbox" id="toggle" />
-            <label
-              htmlFor="toggle"
-              onClick={() => {
-                setUnits(units === "metric" ? "imperial" : "metric");
-              }}
-            >
-              <div className="app-toggle-temp-text">
-                <span>°F</span>
-                <span>°C</span>
-              </div>
-            </label>
-          </div>
-        </header>
-        <div className="app-body d-md-flex flex-md-row-reverse justify-content-md-between align-items-md-center">
-          <WeatherCard
-            props={weatherData}
-            units={units}
-            userLocation={userLocation}
-          />
-          <div
-            className="app-favorites d-flex flex-column p-1 pt-md-1 mt-md-2 ms-md-2"
-            style={{
-              backgroundColor: backgroundColor ? backgroundColor : "white",
-              boxShadow: !backgroundColor
-                ? "0 0 10px 0 rgba(0, 0, 0, 0.2)"
-                : "none",
+    <div className="app">
+      <header
+        className="app-header"
+        style={{ backgroundColor: backgroundColor }}
+      >
+        <h1>Weather</h1>
+        <div className="app-toggle-temp">
+          <input type="checkbox" id="toggle" />
+          <label
+            htmlFor="toggle"
+            onClick={() => {
+              setUnits(units === "metric" ? "imperial" : "metric");
             }}
           >
-            <Search find={setSearchedLocation} />
-            <h3 className="ms-3 m-2 ms-md-0 m-md-0 text-center">
-              Favorite Locations
-            </h3>
-            <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-              <Droppable droppableId="fave-list" type="favorites">
-                {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    className="app-favorites-list p-1 overflow-auto container shadow"
-                  >
-                    {favoritesList.map((favorite, index) => (
-                      <MiniWeatherCard
-                        location={favorite}
-                        unit={units}
-                        key={favorite.id}
-                        index={index}
-                        select={setClickedCard}
-                      />
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
+            <div className="app-toggle-temp-text">
+              <span>°F</span>
+              <span>°C</span>
+            </div>
+          </label>
+        </div>
+      </header>
+      <div className="app-body d-md-flex flex-md-row-reverse justify-content-md-between align-items-md-center">
+        <WeatherCard
+          props={weatherData}
+          units={units}
+          userLocation={userLocation}
+        />
+        <div
+          className="app-favorites d-flex flex-column p-1 pt-md-1 mt-md-2 ms-md-2"
+          style={{
+            backgroundColor: backgroundColor ? backgroundColor : "white",
+            boxShadow: !backgroundColor
+              ? "0 0 10px 0 rgba(0, 0, 0, 0.2)"
+              : "none",
+          }}
+        >
+          <Search find={setSearchedLocation} />
+          <h3 className="ms-3 m-2 ms-md-0 m-md-0 text-center">
+            Favorite Locations
+          </h3>
+          <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+            <Droppable droppableId="fave-list" type="favorites">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="app-favorites-list p-1 overflow-auto container shadow"
+                >
+                  {favoritesList.map((favorite, index) => (
+                    <MiniWeatherCard
+                      location={favorite}
+                      unit={units}
+                      key={favorite.id}
+                      index={index}
+                      select={setClickedCard}
+                    />
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
-    </UserContext.Provider>
+    </div>
   );
 }
 
