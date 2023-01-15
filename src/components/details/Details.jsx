@@ -15,13 +15,13 @@ export default function Details({ props, units }) {
         <div className="weather-details-current d-flex flex-column w-100 justify-content-start me-5">
           <div className="weather-details__item">
             <p className="weather-details__item-sunrise">
-              Sunrise:
+              <strong> Sunrise:</strong>
               <span className="weather-details__item-time ms-1">
                 {getTime(props.sys.sunrise)}
               </span>
             </p>
             <p className="weather-details__item-sunset">
-              Sunset:
+              <strong> Sunset:</strong>
               <span className="weather-details__item-time ms-1">
                 {getTime(props.sys.sunset)}
               </span>
@@ -29,17 +29,17 @@ export default function Details({ props, units }) {
           </div>
           <div className="weather-details__item">
             <p className="weather-details__item-humidity">
-              Humidity: {props.main.humidity}%
+              <strong>Humidity:</strong> {props.main.humidity}%
             </p>
           </div>
           <div className="weather-details__item">
             <p className="weather-details__item-pressure">
-              Pressure: {props.main.pressure} hPa
+              <strong>Pressure:</strong> {props.main.pressure} hPa
             </p>
           </div>
           <div className="weather-details__item d-md-flex gap-3">
             <p className="weather-details__item-visibility">
-              Visibility: {convertWindSpeed(props.visibility)}{" "}
+              <strong>Visibility:</strong> {convertWindSpeed(props.visibility)}{" "}
               <span className="weather-details__item-meters">
                 {units === "metric" ? "km" : "miles"}
               </span>
