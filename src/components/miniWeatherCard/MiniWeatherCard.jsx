@@ -35,6 +35,15 @@ export default function MiniWeatherCard({ location, unit, index, select }) {
     }
   }, [unit]);
 
+  const getCountryAbbr = (country) => {
+    const countryName = countries[country];
+    if (countryName.length > 10) {
+      return country;
+    } else {
+      return countryName;
+    }
+  };
+
   return (
     weatherData && (
       <Draggable key={id} draggableId={id.toString()} index={index}>
@@ -57,7 +66,7 @@ export default function MiniWeatherCard({ location, unit, index, select }) {
                 data-cy="weathercard-city_name"
                 className="text-end text-wrap text-break me-2 fw-bold"
               >
-                {weatherData.name}, {countries[weatherData.sys.country]}
+                {weatherData.name}, {getCountryAbbr(weatherData.sys.country)}
               </p>
             </div>
           </div>
