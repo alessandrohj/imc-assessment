@@ -1,6 +1,7 @@
 # Weather App
 
-![Weather App](https://img.icons8.com/color/96/000000/weather.png)
+
+<img height="500" alt="mobile view" style="float: left" src="https://user-images.githubusercontent.com/72152264/212581404-645c8061-bf49-4c8c-8fe3-374fd3f84df8.png">|<img width="500" alt="desktop view" style="float: right" src="https://user-images.githubusercontent.com/72152264/212581400-0c1b2ae3-cee0-471c-9cf8-fd3e046a8675.png">
 
 A simple and user-friendly weather app that allows you to check the current weather and forecast for any city in the world. The app is built using React, JavaScript, Bootstrap, and the OpenWeatherMap API.
 
@@ -26,7 +27,8 @@ A simple and user-friendly weather app that allows you to check the current weat
 
 ## Deployment
 
-The app is deployed on [Netlify](https://www.netlify.com/) at [https://weather-app.netlify.com](https://weather-app.netlify.com)
+The app is deployed on [Netlify](https://www.netlify.com/) at [https://papaya-crisp-c9658f.netlify.app](https://papaya-crisp-c9658f.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/18b2e241-db1b-42dd-b59b-a48bf1830330/deploy-status)](https://app.netlify.com/sites/papaya-crisp-c9658f/deploys)
 
 ## Built With
 
